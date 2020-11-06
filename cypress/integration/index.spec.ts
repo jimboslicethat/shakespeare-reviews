@@ -3,7 +3,7 @@ describe('Index', () => {
     cy.visit('/')
   })
 
-  it('example test', () => {
-    cy.contains('Welcome to Next.js!').should('exist')
+  it('Has the correct page title', () => {
+    cy.title().should('eq', 'Shakespeare Reviews')
   })
 })

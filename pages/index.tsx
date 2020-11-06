@@ -7,7 +7,7 @@ export default function Home(): React.ReactElement {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Create Next App</title>
+        <title>Shakespeare Reviews</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
