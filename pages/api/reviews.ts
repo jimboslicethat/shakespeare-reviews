@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 const { AUTH_TOKEN, SHAKESPEARE_API_URL } = process.env
 
-interface ReviewResponseData {
+export interface ReviewResponseData {
   rating: number
   // eslint-disable-next-line camelcase
   publish_date: string
