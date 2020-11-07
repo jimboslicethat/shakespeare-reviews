@@ -14,18 +14,22 @@ export interface ReviewResponseData {
 
 export default async function getReviews(
   _req: NextApiRequest,
-  res: NextApiResponse<ReviewResponseData>
+  res: NextApiResponse<ReviewResponseData[]>
 ): Promise<void> {
   res.statusCode = 200
   res.setHeader('Content-Type', 'application/json')
 
-  const request = new Request(SHAKESPEARE_API_URL, {
+  const reviews = await requestApi(SHAKESPEARE_API_URL, AUTH_TOKEN)
+
+  res.end(JSON.stringify(reviews))
+}
+
+export async function requestApi(url: string, authToken: string): Promise<Response> {
+  const request = new Request(url, {
     method: 'GET',
-    headers: { 'X-API-KEY': AUTH_TOKEN }
+    headers: { 'X-API-KEY': authToken }
   })
 
   const response = await fetch(request)
-  const reviews = await response.json()
-
-  res.end(JSON.stringify(reviews))
+  return response.json()
 }
