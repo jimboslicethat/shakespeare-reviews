@@ -2,9 +2,11 @@
 
 ## Getting Started 🚀
 1. Create a `.env.local` in the root directory for storing config variables. In this case add environment variables for:
-    * `SHAKESPEARE_API_URL` which should be the API url for the coding challenge sent over in the email.
-    * `AUTH_TOKEN`. Please refer to, or feel free to copy `.env.local.example`.
-2. Install depencencies with `yarn`.
+    * `SHAKESPEARE_API_URL` = The API url for the shakespeare API.
+    * `AUTH_TOKEN` = The auth token for accessing the shakespeare API.
+    * `BASE_URL` = http://localhost:3000
+    * Refer to the `.env.local.example` for a more concrete example.
+2. Install depencencies by running `yarn`.
 3. Start the development server by running:
 
 ```bash

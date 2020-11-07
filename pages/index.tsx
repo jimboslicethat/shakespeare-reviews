@@ -3,7 +3,12 @@ import React from 'react'
 
 import styles from '../styles/Home.module.css'
 
-export default function Home(): React.ReactElement {
+import { ReviewResponseData } from './api/reviews'
+
+interface Props {
+  reviews: ReviewResponseData[]
+}
+export default function Home({ reviews = [] }: Props): React.ReactElement {
   return (
     <div className={styles.container}>
       <Head>
@@ -12,20 +17,29 @@ export default function Home(): React.ReactElement {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Welcome to Next.js!</h1>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-        </div>
+        <h1 className={styles.title}>Shakespeare Reviews</h1>
+        {reviews.map(review => (
+          <div key={review.id} className={styles.grid}>
+            <section className={styles.card}>
+              <h2>{review.rating}</h2>
+              <time dateTime={`${review.publish_date}`}>
+                {new Date(review.publish_date).toDateString()}
+              </time>
+              <span>
+                By
+                {review.author}
+              </span>
+              <p>{review.body}</p>
+            </section>
+          </div>
+        ))}
       </main>
     </div>
   )
+}
+
+Home.getInitialProps = async () => {
+  const res = await fetch(`${process.env.BASE_URL}/api/reviews`)
+  const reviews = await res.json()
+  return { reviews }
 }

@@ -25,11 +25,10 @@ export default async function getReviews(
 }
 
 export async function requestApi(url: string, authToken: string): Promise<Response> {
-  const request = new Request(url, {
+  const res = await fetch(url, {
     method: 'GET',
     headers: { 'X-API-KEY': authToken }
   })
 
-  const response = await fetch(request)
-  return response.json()
+  return res.json()
 }
