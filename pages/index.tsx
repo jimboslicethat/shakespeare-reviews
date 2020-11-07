@@ -1,10 +1,37 @@
 import Rating from '@material-ui/lab/Rating'
+import { motion } from 'framer-motion'
 import Head from 'next/head'
 import React from 'react'
 
 import styles from '../styles/Home.module.css'
 
 import { ReviewResponseData } from './api/reviews'
+
+const pageHeader = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 1
+    }
+  }
+}
+const reviewContainer = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.075
+    }
+  }
+}
+
+const individualReview = {
+  hidden: { opacity: 0.15 },
+  visible: {
+    opacity: 1
+  }
+}
 
 interface Props {
   reviews: ReviewResponseData[]
@@ -27,10 +54,17 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Shakespeare Reviews</h1>
-        <div className={styles.grid}>
+        <motion.h1 initial="hidden" animate="show" variants={pageHeader} className={styles.title}>
+          Shakespeare Reviews
+        </motion.h1>
+        <motion.div
+          className={styles.grid}
+          variants={reviewContainer}
+          initial="hidden"
+          animate={reviews.length > 0 && 'visible'}
+        >
           {reviews.map(review => (
-            <section key={review.id} className={styles.card}>
+            <motion.section key={review.id} className={styles.card} variants={individualReview}>
               <h2 className={styles.rating}>
                 {review.rating}
                 &nbsp;
@@ -44,9 +78,9 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
                 <span className={styles.author}>{review.author}</span>
               </span>
               <p className={styles.reviewBodyPreview}>{getReviewBodyPreview(review)}</p>
-            </section>
+            </motion.section>
           ))}
-        </div>
+        </motion.div>
       </main>
     </div>
   )
