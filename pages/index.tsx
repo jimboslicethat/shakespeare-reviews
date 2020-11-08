@@ -1,10 +1,10 @@
-import Rating from '@material-ui/lab/Rating'
 import { motion } from 'framer-motion'
 import Head from 'next/head'
 import React from 'react'
 
 import styles from '../styles/Home.module.css'
 
+import Review from './_review'
 import { ReviewResponseData } from './api/reviews'
 
 const pageHeader = {
@@ -26,22 +26,10 @@ const reviewContainer = {
   }
 }
 
-const individualReview = {
-  hidden: { opacity: 0.15 },
-  visible: {
-    opacity: 1
-  }
-}
-
 interface Props {
   reviews: ReviewResponseData[]
 }
 export default function Home({ reviews = [] }: Props): React.ReactElement {
-  const getReviewBodyPreview = (review: ReviewResponseData) => {
-    const reviewStart = review.body.slice(0, 60)
-    return `${reviewStart}...`
-  }
-
   return (
     <div className={styles.container}>
       <Head>
@@ -64,21 +52,7 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
           animate={reviews.length > 0 && 'visible'}
         >
           {reviews.map(review => (
-            <motion.section key={review.id} className={styles.card} variants={individualReview}>
-              <h2 className={styles.rating}>
-                {review.rating}
-                &nbsp;
-                <Rating name="read-only" value={review.rating} readOnly />
-              </h2>
-              <time dateTime={`${review.publish_date}`} className={styles.publishedAt}>
-                {new Date(review.publish_date).toDateString()}
-              </time>
-              <span>
-                By&nbsp;
-                <span className={styles.author}>{review.author}</span>
-              </span>
-              <p className={styles.reviewBodyPreview}>{getReviewBodyPreview(review)}</p>
-            </motion.section>
+            <Review key={review.id} review={review} />
           ))}
         </motion.div>
       </main>
