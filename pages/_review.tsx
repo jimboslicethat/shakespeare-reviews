@@ -42,6 +42,7 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.9 }}
         onClick={handleOpen}
+        tabIndex={0}
       >
         <h2 className={styles.rating}>
           {review.rating}

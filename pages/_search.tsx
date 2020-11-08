@@ -25,6 +25,7 @@ export default function Search({ handleSearch }: Props): React.ReactElement {
       placeholder="Search Reviews"
       onChange={onChange}
       aria-label="Search through Reviews"
+      tabIndex={0}
     />
   )
 }
