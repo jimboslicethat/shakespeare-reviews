@@ -1,0 +1,21 @@
+.label {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+  color: #0070f3;
+  font-family: Roboto;
+  font-size: 20px;
+}
+.select {
+  width: 16rem;
+  height: 2rem;
+  margin-top: 8px;
+  padding: 4px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: Roboto;
+}
+.select:hover {
+  cursor: pointer;
+}

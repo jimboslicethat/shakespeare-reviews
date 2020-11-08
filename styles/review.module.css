@@ -1,6 +1,5 @@
 .card {
   margin: 1rem;
-  flex-basis: 45%;
   padding: 1.25rem;
   text-align: center;
   color: inherit;
@@ -44,8 +43,9 @@
 
 .modal {
   position: absolute;
-  top: 40%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,12 +53,27 @@
   background-color: #fff;
   border-radius: 5px;
   outline: none;
-  width: 25vw;
-  height: 20vw;
+  width: 34rem;
+  height: 24rem;
 }
 .reviewerHeader {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 32px;
+}
+
+@media (max-width: 600px) {
+  .modal {
+    diplay: flex;
+    align-self:center;
+    width: 22rem;
+    height: 22rem;
+  }
+  .reviewerHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 24px;
+  }
 }

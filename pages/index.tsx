@@ -1,35 +1,62 @@
 import { motion } from 'framer-motion'
+import orderBy from 'lodash/orderBy'
 import Head from 'next/head'
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from '../styles/Home.module.css'
 
 import Review from './_review'
+import SortReviewsDropdown, { SortOption, sortOptions } from './_sort-reviews-dropdown'
 import { ReviewResponseData } from './api/reviews'
-
-const pageHeader = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 1
-    }
-  }
-}
-const reviewContainer = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.075
-    }
-  }
-}
 
 interface Props {
   reviews: ReviewResponseData[]
 }
 export default function Home({ reviews = [] }: Props): React.ReactElement {
+  const [currentReviews, setReviews] = useState(reviews)
+
+  const pageHeader = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        duration: 1
+      }
+    }
+  }
+  const reviewContainer = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.075
+      }
+    }
+  }
+
+  const sortByHighestRating = () => {
+    const sortedReviews = orderBy(reviews, ['rating'], ['desc'])
+    setReviews(sortedReviews)
+  }
+  const sortByLowestRating = () => {
+    const sortedReviews = orderBy(reviews, ['rating'])
+    setReviews(sortedReviews)
+  }
+  const sortByMostRecent = () => {
+    const sortedReviews = orderBy(reviews, ['published_at'], ['desc'])
+    setReviews(sortedReviews)
+  }
+  const sortByOldest = () => {
+    const sortedReviews = orderBy(reviews, ['published_at']).reverse()
+    setReviews(sortedReviews)
+  }
+  const handleSort = (sortOption: SortOption) => {
+    if (sortOption === sortOptions.highestRating) sortByHighestRating()
+    if (sortOption === sortOptions.lowestRating) sortByLowestRating()
+    if (sortOption === sortOptions.mostRecent) sortByMostRecent()
+    if (sortOption === sortOptions.oldest) sortByOldest()
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -40,18 +67,18 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
-
       <main className={styles.main}>
         <motion.h1 initial="hidden" animate="show" variants={pageHeader} className={styles.title}>
           Shakespeare Reviews
         </motion.h1>
+        <SortReviewsDropdown handleSort={handleSort} />
         <motion.div
           className={styles.grid}
           variants={reviewContainer}
           initial="hidden"
           animate={reviews.length > 0 && 'visible'}
         >
-          {reviews.map(review => (
+          {currentReviews.map(review => (
             <Review key={review.id} review={review} />
           ))}
         </motion.div>
