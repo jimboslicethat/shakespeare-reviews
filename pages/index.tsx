@@ -1,11 +1,14 @@
 import { motion } from 'framer-motion'
+import filter from 'lodash/filter'
 import orderBy from 'lodash/orderBy'
+import sortBy from 'lodash/sortBy'
 import Head from 'next/head'
 import React, { useState } from 'react'
 
 import styles from '../styles/Home.module.css'
 
 import Review from './_review'
+import Search from './_search'
 import SortReviewsDropdown, { SortOption, sortOptions } from './_sort-reviews-dropdown'
 import { ReviewResponseData } from './api/reviews'
 
@@ -35,19 +38,19 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
   }
 
   const sortByHighestRating = () => {
-    const sortedReviews = orderBy(reviews, ['rating'], ['desc'])
+    const sortedReviews = orderBy(currentReviews, ['rating'], ['desc'])
     setReviews(sortedReviews)
   }
   const sortByLowestRating = () => {
-    const sortedReviews = orderBy(reviews, ['rating'])
+    const sortedReviews = orderBy(currentReviews, ['rating'])
     setReviews(sortedReviews)
   }
   const sortByMostRecent = () => {
-    const sortedReviews = orderBy(reviews, ['published_at'], ['desc'])
+    const sortedReviews = orderBy(currentReviews, ['published_at'], ['desc'])
     setReviews(sortedReviews)
   }
   const sortByOldest = () => {
-    const sortedReviews = orderBy(reviews, ['published_at']).reverse()
+    const sortedReviews = orderBy(currentReviews, ['published_at']).reverse()
     setReviews(sortedReviews)
   }
   const handleSort = (sortOption: SortOption) => {
@@ -55,6 +58,23 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
     if (sortOption === sortOptions.lowestRating) sortByLowestRating()
     if (sortOption === sortOptions.mostRecent) sortByMostRecent()
     if (sortOption === sortOptions.oldest) sortByOldest()
+  }
+
+  const handleSearch = (searchTerm: string) => {
+    const sanitizedSearchTerm = searchTerm.trim().toLowerCase()
+
+    const filteredReviews = filter(reviews, review => {
+      const reviewbodyMatches = review.body.toLowerCase().includes(sanitizedSearchTerm)
+      const authorMatches = review.author.toLowerCase().includes(sanitizedSearchTerm)
+      const ratingMatches = review.rating.toString().includes(sanitizedSearchTerm)
+
+      return reviewbodyMatches || authorMatches || ratingMatches
+    })
+
+    const sortedReviews = currentReviews
+    const filteredAndSortedReviews = sortBy(filteredReviews, sortedReviews)
+
+    setReviews(filteredAndSortedReviews)
   }
 
   return (
@@ -71,7 +91,10 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
         <motion.h1 initial="hidden" animate="show" variants={pageHeader} className={styles.title}>
           Shakespeare Reviews
         </motion.h1>
-        <SortReviewsDropdown handleSort={handleSort} />
+        <div className={styles.pageActions}>
+          <Search handleSearch={handleSearch} />
+          <SortReviewsDropdown handleSort={handleSort} />
+        </div>
         <motion.div
           className={styles.grid}
           variants={reviewContainer}

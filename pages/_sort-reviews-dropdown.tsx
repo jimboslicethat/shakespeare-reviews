@@ -25,16 +25,20 @@ export default function SortReviewsDropdown({ handleSort }: Props): React.ReactE
   const domId = 'review-sort-dropdown'
 
   return (
-    <label className={styles.label} htmlFor={domId} aria-label="Sort Reviews">
-      Sort Reviews
-      <select className={styles.select} id={domId} value={currentSort} onChange={handleChange}>
-        <option selected value={sortOptions.mostRecent}>
-          {sortOptions.mostRecent}
-        </option>
-        <option value={sortOptions.oldest}>{sortOptions.oldest}</option>
-        <option value={sortOptions.highestRating}>{sortOptions.highestRating}</option>
-        <option value={sortOptions.lowestRating}>{sortOptions.lowestRating}</option>
-      </select>
-    </label>
+    <select
+      aria-label="Sort reviews"
+      className={styles.select}
+      id={domId}
+      value={currentSort}
+      onChange={handleChange}
+      tabIndex={0}
+    >
+      <option selected value={sortOptions.mostRecent}>
+        {sortOptions.mostRecent}
+      </option>
+      <option value={sortOptions.oldest}>{sortOptions.oldest}</option>
+      <option value={sortOptions.highestRating}>{sortOptions.highestRating}</option>
+      <option value={sortOptions.lowestRating}>{sortOptions.lowestRating}</option>
+    </select>
   )
 }

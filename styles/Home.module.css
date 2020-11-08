@@ -11,6 +11,13 @@
   padding: 2rem 0;
   width: 95vw;
 }
+.pageActions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  font-family: Roboto;
+}
 
 .title {
   margin: 0;

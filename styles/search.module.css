@@ -1,0 +1,13 @@
+.searchBar {
+  height: 2.1rem;
+  width: 16rem;
+  padding: 6px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  font-size: 20px;
+  margin-right: 0.25rem;
+  outline-color: #0070f3;
+}
+.searchBar::selection{
+  background: #0070f3;
+}
