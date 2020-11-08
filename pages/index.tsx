@@ -95,6 +95,10 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
           <Search handleSearch={handleSearch} />
           <SortReviewsDropdown handleSort={handleSort} />
         </div>
+        <div className={styles.totalResults}>
+          Results:&nbsp;
+          <span className={styles.resultCount}>{currentReviews.length}</span>
+        </div>
         <motion.div
           className={styles.grid}
           variants={reviewContainer}

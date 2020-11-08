@@ -39,6 +39,8 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
         key={review.id}
         className={styles.card}
         variants={reviewItem}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.9 }}
         onClick={handleOpen}
       >
         <h2 className={styles.rating}>
