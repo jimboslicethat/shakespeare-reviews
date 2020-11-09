@@ -33,9 +33,7 @@ export default function SortReviewsDropdown({ handleSort }: Props): React.ReactE
       onChange={handleChange}
       tabIndex={0}
     >
-      <option selected value={sortOptions.mostRecent}>
-        {sortOptions.mostRecent}
-      </option>
+      <option value={sortOptions.mostRecent}>{sortOptions.mostRecent}</option>
       <option value={sortOptions.oldest}>{sortOptions.oldest}</option>
       <option value={sortOptions.highestRating}>{sortOptions.highestRating}</option>
       <option value={sortOptions.lowestRating}>{sortOptions.lowestRating}</option>
