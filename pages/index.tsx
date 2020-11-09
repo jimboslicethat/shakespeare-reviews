@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Dictionary } from 'lodash'
 import filter from 'lodash/filter'
 import findIndex from 'lodash/findIndex'
 import orderBy from 'lodash/orderBy'
@@ -24,37 +25,26 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        duration: 1
-      }
+      transition: { duration: 1 }
     }
   }
 
-  const sortByHighestRating = () => {
-    const sortedReviews = orderBy(currentReviews, ['rating'], ['desc'])
-    setSortedReviews(sortedReviews)
-    setReviews(sortedReviews)
-  }
-  const sortByLowestRating = () => {
-    const sortedReviews = orderBy(currentReviews, ['rating'])
-    setSortedReviews(sortedReviews)
-    setReviews(sortedReviews)
-  }
-  const sortByMostRecent = () => {
-    const sortedReviews = orderBy(currentReviews, ['published_at'], ['desc'])
-    setSortedReviews(sortedReviews)
-    setReviews(sortedReviews)
-  }
-  const sortByOldest = () => {
-    const sortedReviews = orderBy(currentReviews, ['published_at']).reverse()
-    setSortedReviews(sortedReviews)
-    setReviews(sortedReviews)
-  }
+  const sortByHighestRating = () => orderBy(currentReviews, ['rating'], ['desc'])
+  const sortByLowestRating = () => orderBy(currentReviews, ['rating'])
+  const sortByMostRecent = () => orderBy(currentReviews, ['published_at'], ['desc'])
+  const sortByOldest = () => orderBy(currentReviews, ['published_at']).reverse()
+
   const handleSort = (sortOption: SortOption) => {
-    if (sortOption === sortOptions.highestRating) sortByHighestRating()
-    if (sortOption === sortOptions.lowestRating) sortByLowestRating()
-    if (sortOption === sortOptions.mostRecent) sortByMostRecent()
-    if (sortOption === sortOptions.oldest) sortByOldest()
+    const sortHandler: Dictionary<() => ReviewResponseData[]> = {
+      [sortOptions.highestRating]: sortByHighestRating,
+      [sortOptions.lowestRating]: sortByLowestRating,
+      [sortOptions.mostRecent]: sortByMostRecent,
+      [sortOptions.oldest]: sortByOldest
+    }
+
+    const sortedReviews = sortHandler[sortOption]()
+    setSortedReviews(sortedReviews)
+    setReviews(sortedReviews)
   }
 
   const handleSearch = (searchTerm: string) => {
