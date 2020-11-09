@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import styles from '../styles/sort-reviews-dropdown.module.css'
+import styles from '../styles/sort-dropdown.module.css'
 
 export type SortOption = 'Most Recent' | 'Oldest' | 'Highest Rating' | 'Lowest Rating'
 
@@ -12,7 +12,7 @@ export const sortOptions = {
 }
 
 interface Props {
-  handleSort: (sortOption: SortOption) => unknown
+  handleSort: (sortOption: SortOption) => void
 }
 export default function SortReviewsDropdown({ handleSort }: Props): React.ReactElement {
   const [currentSort, setSort] = useState(sortOptions.mostRecent)

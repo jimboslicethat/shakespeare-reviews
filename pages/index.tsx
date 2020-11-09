@@ -11,7 +11,7 @@ import styles from '../styles/index.module.css'
 
 import Review from './_review'
 import Search from './_search'
-import SortReviewsDropdown, { SortOption, sortOptions } from './_sort-reviews-dropdown'
+import SortReviewsDropdown, { SortOption, sortOptions } from './_sort-dropdown'
 import { ReviewResponseData } from './api/reviews'
 
 interface Props {
