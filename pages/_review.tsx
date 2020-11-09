@@ -8,13 +8,6 @@ import styles from '../styles/review.module.css'
 
 import { ReviewResponseData } from './api/reviews'
 
-const reviewItem = {
-  hidden: { opacity: 0.15 },
-  visible: {
-    opacity: 1
-  }
-}
-
 interface Props {
   review: ReviewResponseData
 }
@@ -38,7 +31,6 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
       <motion.section
         key={review.id}
         className={styles.card}
-        variants={reviewItem}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.9 }}
         onClick={handleOpen}

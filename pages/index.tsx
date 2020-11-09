@@ -18,21 +18,12 @@ interface Props {
 export default function Home({ reviews = [] }: Props): React.ReactElement {
   const [currentReviews, setReviews] = useState(reviews)
 
-  const pageHeader = {
+  const reviewCardAnimations = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        duration: 1
-      }
-    }
-  }
-  const reviewContainer = {
-    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.075
+        duration: 1
       }
     }
   }
@@ -88,9 +79,7 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
         />
       </Head>
       <main className={styles.main}>
-        <motion.h1 initial="hidden" animate="show" variants={pageHeader} className={styles.title}>
-          Shakespeare Reviews
-        </motion.h1>
+        <h1 className={styles.title}>Shakespeare Reviews</h1>
         <div className={styles.pageActions}>
           <Search handleSearch={handleSearch} />
           <SortReviewsDropdown handleSort={handleSort} />
@@ -101,7 +90,7 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
         </div>
         <motion.div
           className={styles.grid}
-          variants={reviewContainer}
+          variants={reviewCardAnimations}
           initial="hidden"
           animate={reviews.length > 0 && 'visible'}
         >
