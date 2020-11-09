@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { motion } from 'framer-motion'
 import { Dictionary } from 'lodash'
 import filter from 'lodash/filter'
@@ -31,8 +32,10 @@ export default function Index({ reviews = [] }: Props): React.ReactElement {
 
   const sortByHighestRating = () => orderBy(currentReviews, ['rating'], ['desc'])
   const sortByLowestRating = () => orderBy(currentReviews, ['rating'])
-  const sortByMostRecent = () => orderBy(currentReviews, ['published_at'], ['desc'])
-  const sortByOldest = () => orderBy(currentReviews, ['published_at']).reverse()
+  const sortByMostRecent = () =>
+    orderBy(currentReviews, ({ publish_date }) => new Date(publish_date), ['desc'])
+  const sortByOldest = () =>
+    orderBy(currentReviews, ({ publish_date }) => new Date(publish_date), ['asc'])
 
   const handleSort = (sortOption: SortOption) => {
     const sortHandler: Dictionary<() => ReviewResponseData[]> = {
