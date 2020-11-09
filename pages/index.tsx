@@ -12,7 +12,7 @@ import styles from '../styles/index.module.css'
 
 import Review from './_review'
 import Search from './_search'
-import SortReviewsDropdown, { SortOption, sortOptions } from './_sort-dropdown'
+import SortDropdown, { SortOption, sortOptions } from './_sort-dropdown'
 import { ReviewResponseData } from './api/reviews'
 
 interface Props {
@@ -82,7 +82,7 @@ export default function Index({ reviews = [] }: Props): React.ReactElement {
         <h1 className={styles.title}>Shakespeare Reviews</h1>
         <div className={styles.pageActions}>
           <Search handleSearch={handleSearch} />
-          <SortReviewsDropdown handleSort={handleSort} />
+          <SortDropdown handleSort={handleSort} />
         </div>
         <div className={styles.totalResults}>
           Results:&nbsp;

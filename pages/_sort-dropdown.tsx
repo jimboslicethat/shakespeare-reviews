@@ -14,7 +14,7 @@ export const sortOptions = {
 interface Props {
   handleSort: (sortOption: SortOption) => void
 }
-export default function SortReviewsDropdown({ handleSort }: Props): React.ReactElement {
+export default function SortDropdown({ handleSort }: Props): React.ReactElement {
   const [currentSort, setSort] = useState(sortOptions.mostRecent)
 
   const handleChange = event => {
