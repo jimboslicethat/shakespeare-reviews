@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import filter from 'lodash/filter'
+import findIndex from 'lodash/findIndex'
 import orderBy from 'lodash/orderBy'
 import sortBy from 'lodash/sortBy'
 import Head from 'next/head'
@@ -17,6 +18,7 @@ interface Props {
 }
 export default function Home({ reviews = [] }: Props): React.ReactElement {
   const [currentReviews, setReviews] = useState(reviews)
+  const [currentSortedReviews, setSortedReviews] = useState([])
 
   const reviewContainer = {
     hidden: { opacity: 0 },
@@ -30,18 +32,22 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
 
   const sortByHighestRating = () => {
     const sortedReviews = orderBy(currentReviews, ['rating'], ['desc'])
+    setSortedReviews(sortedReviews)
     setReviews(sortedReviews)
   }
   const sortByLowestRating = () => {
     const sortedReviews = orderBy(currentReviews, ['rating'])
+    setSortedReviews(sortedReviews)
     setReviews(sortedReviews)
   }
   const sortByMostRecent = () => {
     const sortedReviews = orderBy(currentReviews, ['published_at'], ['desc'])
+    setSortedReviews(sortedReviews)
     setReviews(sortedReviews)
   }
   const sortByOldest = () => {
     const sortedReviews = orderBy(currentReviews, ['published_at']).reverse()
+    setSortedReviews(sortedReviews)
     setReviews(sortedReviews)
   }
   const handleSort = (sortOption: SortOption) => {
@@ -62,9 +68,8 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
       return reviewbodyMatches || authorMatches || ratingMatches
     })
 
-    const sortedReviews = currentReviews
-    const filteredAndSortedReviews = sortBy(filteredReviews, review =>
-      sortedReviews.indexOf(review)
+    const filteredAndSortedReviews = sortBy(filteredReviews, ({ id }) =>
+      findIndex(currentSortedReviews, ['id', id])
     )
 
     setReviews(filteredAndSortedReviews)

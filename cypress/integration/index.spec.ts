@@ -79,6 +79,16 @@ describe('pages/index', () => {
     cy.get('input').first().clear()
   })
 
+  it('Searches and sorts together', () => {
+    cy.get('select').select('Highest Rating')
+    cy.get('input').first().type(`Can one desire`)
+
+    cy.get('section').should('have.length', 9).contains('4.9')
+    cy.get('select').select('Lowest Rating')
+    cy.get('section').should('have.length', 9).contains('0.8')
+    cy.get('input').first().clear()
+  })
+
   it('Opens an individual review card', () => {
     cy.get('section').first().click({ force: true })
   })
