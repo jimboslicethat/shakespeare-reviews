@@ -21,7 +21,8 @@ yarn dev
 ## Testing 🧪
 The Cypress E2E/Integration test suite may be run one of two ways.
 1. In a chromium instance by running `yarn cypress:open`.
-2. In a headless browser in the CLI by running `yarn cypress:run`.
+1. In a headless browser in the CLI by running `yarn cypress:run`.
+1. You may find test suite files located in `cypress/integration`.
 
 ### Additional Info
 This project was bootstrapped using [Next.js](https://nextjs.org/docs).
