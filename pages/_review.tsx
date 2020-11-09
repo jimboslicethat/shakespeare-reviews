@@ -39,7 +39,7 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
         <h2 className={styles.rating}>
           {review.rating}
           &nbsp;
-          <Rating name="read-only" value={review.rating} readOnly />
+          <Rating name="read-only" value={review.rating} precision={0.5} readOnly />
         </h2>
         <time dateTime={`${review.publish_date}`} className={styles.publishedAt}>
           {new Date(review.publish_date).toDateString()}
