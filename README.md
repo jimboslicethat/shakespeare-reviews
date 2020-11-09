@@ -1,11 +1,11 @@
 # Shakespeare Reviews
 
 ## Getting Started 🚀
-1. Create a `.env.local` in the root directory for storing config variables. In this case add environment variables for:
-    * `SHAKESPEARE_API_URL` = The API url for the shakespeare API.
-    * `AUTH_TOKEN` = The auth token for accessing the shakespeare API _(can be copied from example file)_
+1. Create a `.env.local` in the root directory for storing config variables. Please refer to the `.env.local.example` for more details.
+1. In this case add environment variables for:
+    * `SHAKESPEARE_API_URL` = The API url for the shakespeare API _(can be copied from example file)_
+    * `AUTH_TOKEN` = The auth token for accessing the shakespeare API
     * `BASE_URL` = http://localhost:3000 _(can be copied from example file)_
-    * Refer to the `.env.local.example` for a more concrete example.
 2. Install depencencies by running `yarn`.
 3. Start the development server by running:
 
