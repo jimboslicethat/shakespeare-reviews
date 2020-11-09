@@ -26,8 +26,8 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
     return `${reviewStart}...`
   }
 
-  return (
-    <>
+  const renderReviewCard = () => {
+    return (
       <motion.section
         key={review.id}
         className={styles.card}
@@ -50,6 +50,10 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
         </span>
         <p className={styles.reviewBodyPreview}>{getReviewBodyPreview()}</p>
       </motion.section>
+    )
+  }
+  const renderReviewModal = () => {
+    return (
       <Modal open={isOpen} onClose={handleClose}>
         <div className={styles.modal}>
           <h2 className={styles.reviewerHeader}>
@@ -59,7 +63,7 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
           <h2 className={styles.rating}>
             {review.rating}
             &nbsp;
-            <Rating name="read-only" value={review.rating} readOnly />
+            <Rating name="read-only" value={review.rating} size="large" readOnly />
           </h2>
           <time dateTime={`${review.publish_date}`} className={styles.publishedAt}>
             Reviewed on&nbsp;
@@ -68,6 +72,13 @@ export default function Review({ review = {} as ReviewResponseData }: Props): Re
           <p className={styles.fullReviewBody}>{`"${review.body}"`}</p>
         </div>
       </Modal>
+    )
+  }
+
+  return (
+    <>
+      {renderReviewCard()}
+      {renderReviewModal()}
     </>
   )
 }
