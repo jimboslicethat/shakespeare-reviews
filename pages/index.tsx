@@ -18,7 +18,7 @@ interface Props {
 export default function Home({ reviews = [] }: Props): React.ReactElement {
   const [currentReviews, setReviews] = useState(reviews)
 
-  const reviewCardAnimations = {
+  const reviewContainer = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -63,7 +63,9 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
     })
 
     const sortedReviews = currentReviews
-    const filteredAndSortedReviews = sortBy(filteredReviews, sortedReviews)
+    const filteredAndSortedReviews = sortBy(filteredReviews, review =>
+      sortedReviews.indexOf(review)
+    )
 
     setReviews(filteredAndSortedReviews)
   }
@@ -90,7 +92,7 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
         </div>
         <motion.div
           className={styles.grid}
-          variants={reviewCardAnimations}
+          variants={reviewContainer}
           initial="hidden"
           animate={reviews.length > 0 && 'visible'}
         >
