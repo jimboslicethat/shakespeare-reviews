@@ -7,7 +7,7 @@ import sortBy from 'lodash/sortBy'
 import Head from 'next/head'
 import React, { useState } from 'react'
 
-import styles from '../styles/Home.module.css'
+import styles from '../styles/index.module.css'
 
 import Review from './_review'
 import Search from './_search'
@@ -17,7 +17,7 @@ import { ReviewResponseData } from './api/reviews'
 interface Props {
   reviews: ReviewResponseData[]
 }
-export default function Home({ reviews = [] }: Props): React.ReactElement {
+export default function Index({ reviews = [] }: Props): React.ReactElement {
   const [currentReviews, setReviews] = useState(reviews)
   const [currentSortedReviews, setSortedReviews] = useState([])
 
@@ -100,7 +100,7 @@ export default function Home({ reviews = [] }: Props): React.ReactElement {
   )
 }
 
-Home.getInitialProps = async () => {
+Index.getInitialProps = async () => {
   const res = await fetch(`${process.env.BASE_URL}/api/reviews`)
   const reviews = await res.json()
   return { reviews }
